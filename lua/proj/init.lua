@@ -67,6 +67,7 @@ local function extract_readme_description(dir)
 				table.insert(description, '\n')
 			end
 		end
+		io.close(readme)
 		return description
 	end
 	return {}
