@@ -4,6 +4,8 @@ local NuiLayout = require('nui.layout')
 local NuiLine = require('nui.line')
 local NuiText = require('nui.text')
 
+local exclude_dirs = {}
+
 local M = {}
 
 ---@class UnityProjInfo
@@ -444,6 +446,14 @@ function M._update_proj_info_buf(bufnr, info)
 
 	if info.unity ~= nil then
 	end
+end
+
+function M.add_exclude_dir(dir)
+	table.insert(exclude_dirs, dir)
+end
+
+function M.get_exclude_dirs()
+	return exclude_dirs
 end
 
 function M.setup(opts)
