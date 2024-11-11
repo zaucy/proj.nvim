@@ -478,12 +478,27 @@ function M.setup(opts)
 				popup:unmount()
 			end)
 
+			---@diagnostic disable-next-line: param-type-mismatch
 			M.proj_info(vim.uv.cwd(), function(info)
 				M._update_proj_info_buf(popup.bufnr, info)
 			end)
 		end,
 		{}
 	)
+
+	if opts.hook_dir_changed then
+		vim.api.nvim_create_autocmd("DirChanged", {
+			callback = function()
+				vim.uv.spawn("zoxide", {
+					args = { "add", vim.uv.cwd() },
+					hide = true,
+					stdio = { nil, nil, nil },
+					detached = true,
+				}, function()
+				end)
+			end
+		})
+	end
 end
 
 return M
