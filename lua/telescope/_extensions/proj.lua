@@ -32,7 +32,7 @@ end
 
 local function proj_picker(opts)
 	opts = opts or {}
-	opts.cwd = opts.cwd and utils.path_expand(opts.cwd) or vim.loop.cwd()
+	opts.cwd = opts.cwd and utils.path_expand(opts.cwd) or vim.uv.cwd()
 	local finder = finders.new_job(
 		function(prompt)
 			prompt = prompt or ""
@@ -68,7 +68,6 @@ local function proj_picker(opts)
 			map({ "i", "n" }, "<cr>", function(_)
 				local entry = action_state.get_selected_entry()
 				actions.close(prompt_bufnr)
-				vim.cmd.cd(entry.value)
 				vim.cmd.edit(entry.value)
 			end, {})
 			return true
