@@ -9,8 +9,10 @@ local proj = require('proj')
 local Path = require('plenary.path')
 
 local function make_proj_picker_entry(dir)
+	dir = dir:gsub('\\', '/')
 	local exclude_dirs = proj.get_exclude_dirs()
 	for _, exclude_dir in ipairs(exclude_dirs) do
+		exclude_dir = exclude_dir:gsub('\\', '/')
 		if vim.startswith(dir, exclude_dir) then
 			return nil
 		end
